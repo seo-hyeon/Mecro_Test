@@ -51,7 +51,7 @@ def ssh_connect(ip):
     try:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(ip)
+        client.connect(ip, username="kakao", password=1234)
         print(f"Successfully connected to {ip}")
         client.close()
         return True
@@ -61,7 +61,7 @@ def ssh_connect(ip):
 
 if __name__ == "__main__":
     # all_private_ips = generate_private_ips()
-    all_private_ips = ['172.20.21.192/26']
+    all_private_ips = ['172.20.21.192/26', '172.20.16.0/20']
     all_devices = []
     log_lines = "결과: "
 
@@ -86,4 +86,5 @@ if __name__ == "__main__":
         except:
             continue
     
+    print(log_lines)
     send_to_discord(log_lines)

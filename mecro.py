@@ -54,8 +54,10 @@ def ssh_connect(ip):
         client.connect(ip)
         print(f"Successfully connected to {ip}")
         client.close()
+        return True
     except Exception as e:
         print(f"Failed to connect to {ip}: {e}")
+        return False
 
 if __name__ == "__main__":
     # all_private_ips = generate_private_ips()

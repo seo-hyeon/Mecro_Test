@@ -51,7 +51,7 @@ def ssh_connect(ip):
     try:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(ip, username="kakao", password=1234)
+        client.connect(ip, username="kakao", password="1234")
         print(f"Successfully connected to {ip}")
         client.close()
         return True

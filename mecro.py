@@ -61,17 +61,17 @@ if __name__ == "__main__":
     # all_private_ips = generate_private_ips()
     all_private_ips = ['172.20.21.192/26']
     all_devices = []
-    log_lines = ""
+    log_lines = "결과: "
 
     print("활성 장비 스캔 중...")
     for ip in all_private_ips:
         devices = scan_network(ip)
-        print(devices)
         all_devices.extend(devices)
 
     print("\n활성 장비 목록:")
     for device in all_devices:
         try:
+            print(f"\nIP: {device['ip']}, MAC: {device['mac']}\n")
             log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
             
             if check_ssh(device['ip']):

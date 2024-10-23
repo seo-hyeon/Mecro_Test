@@ -61,7 +61,7 @@ def ssh_connect(ip):
 
 if __name__ == "__main__":
     # all_private_ips = generate_private_ips()
-    all_private_ips = ['172.20.21.192/26', '172.20.16.0/20']
+    all_private_ips = ['172.20.21.192/26', '172.20.212.202']
     all_devices = []
     log_lines = "결과: "
 

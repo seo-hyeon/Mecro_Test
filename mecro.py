@@ -67,6 +67,7 @@ if __name__ == "__main__":
 
     print("\n활성 장비 목록:")
     for device in all_devices:
+        print(f"IP: {device['ip']}, MAC: {device['mac']}")
         try:
             log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
             

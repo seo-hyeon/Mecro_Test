@@ -16,6 +16,7 @@ import requests
 #     return private_ips
 
 def send_to_discord(content):
+    print("전송 시작")
     webhook_url = "https://discord.com/api/webhooks/1297527399268876288/DcPDYJNPM6mvV8iQ879HfBo5r8B1qdpIAy2AlZAUwCzgSvKD1XHldCWHjP5YuEYKQgWO" 
     headers = {
         "Content-Type": "application/json"
@@ -63,11 +64,11 @@ if __name__ == "__main__":
     print("활성 장비 스캔 중...")
     for ip in all_private_ips:
         devices = scan_network(ip)
+        print(devices)
         all_devices.extend(devices)
 
     print("\n활성 장비 목록:")
     for device in all_devices:
-        print(f"IP: {device['ip']}, MAC: {device['mac']}")
         try:
             log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
             
@@ -80,6 +81,5 @@ if __name__ == "__main__":
                 log_lines += "\n" + ssh_status
         except:
             continue
-    
     
     send_to_discord(log_lines)

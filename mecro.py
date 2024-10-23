@@ -67,14 +67,18 @@ if __name__ == "__main__":
 
     print("\n활성 장비 목록:")
     for device in all_devices:
-        log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
-        
-        if check_ssh(device['ip']):
-            ssh_status = f"SSH 포트가 열려있습니다: {device['ip']}. SSH 접속 시도 중..."
-            log_lines += "\n" + ssh_status
-            ssh_connect(device['ip'])
-        else:
-            ssh_status = f"SSH 포트가 닫혀있습니다: {device['ip']}"
-            log_lines += "\n" + ssh_status
+        try:
+            log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
+            
+            if check_ssh(device['ip']):
+                ssh_status = f"SSH 포트가 열려있습니다: {device['ip']}. SSH 접속 시도 중..."
+                log_lines += "\n" + ssh_status
+                ssh_connect(device['ip'])
+            else:
+                ssh_status = f"SSH 포트가 닫혀있습니다: {device['ip']}"
+                log_lines += "\n" + ssh_status
+        except:
+            continue
+    
     
     send_to_discord(log_lines)

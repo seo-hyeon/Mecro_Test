@@ -16,15 +16,17 @@ import requests
 #     return private_ips
 
 def send_to_discord(content):
-    print("전송 시작")
-    webhook_url = "https://discord.com/api/webhooks/1297527399268876288/DcPDYJNPM6mvV8iQ879HfBo5r8B1qdpIAy2AlZAUwCzgSvKD1XHldCWHjP5YuEYKQgWO" 
-    headers = {
-        "Content-Type": "application/json"
-    } 
-    data = {
-        "content": content
-    }
-    requests.post(webhook_url, json=data, headers=headers)
+    try:
+        webhook_url = "https://discord.com/api/webhooks/1297527399268876288/DcPDYJNPM6mvV8iQ879HfBo5r8B1qdpIAy2AlZAUwCzgSvKD1XHldCWHjP5YuEYKQgWO" 
+        headers = {
+            "Content-Type": "application/json"
+        } 
+        data = {
+            "content": content
+        }
+        requests.post(webhook_url, json=data, headers=headers)
+    except Exception as e:
+        print(f"{e}")
 
 def scan_network(ip):
     print(ip)

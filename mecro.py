@@ -5,16 +5,6 @@ import ipaddress
 import json
 import requests
 
-def generate_private_ips():
-    private_ips = []
-
-    network = ipaddress.ip_network('172.16.0.0/12')
-    # 모든 IP 주소 출력
-    for ip in network:
-        private_ips.append(str(ip))
-
-    return private_ips
-
 def send_to_discord(content):
     webhook_url = "https://discord.com/api/webhooks/1297527399268876288/DcPDYJNPM6mvV8iQ879HfBo5r8B1qdpIAy2AlZAUwCzgSvKD1XHldCWHjP5YuEYKQgWO" 
     headers = {
@@ -55,7 +45,8 @@ def ssh_connect(ip):
         print(f"Failed to connect to {ip}: {e}")
 
 if __name__ == "__main__":
-    all_private_ips = generate_private_ips()
+    # all_private_ips = generate_private_ips()
+    all_private_ips = ['172.20.21.192/26']
     all_devices = []
     log_lines = ""
 

@@ -5,6 +5,16 @@ import ipaddress
 import json
 import requests
 
+# def generate_private_ips():
+#     private_ips = []
+
+#     network = ipaddress.ip_network('172.16.0.0/12')
+#     # 모든 IP 주소 출력
+#     for ip in network:
+#         private_ips.append(str(ip))
+
+#     return private_ips
+
 def send_to_discord(content):
     webhook_url = "https://discord.com/api/webhooks/1297527399268876288/DcPDYJNPM6mvV8iQ879HfBo5r8B1qdpIAy2AlZAUwCzgSvKD1XHldCWHjP5YuEYKQgWO" 
     headers = {
@@ -57,7 +67,7 @@ if __name__ == "__main__":
 
     print("\n활성 장비 목록:")
     for device in all_devices:
-        print(f"IP: {device['ip']}, MAC: {device['mac']}")
+        log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
         
         if check_ssh(device['ip']):
             ssh_status = f"SSH 포트가 열려있습니다: {device['ip']}. SSH 접속 시도 중..."

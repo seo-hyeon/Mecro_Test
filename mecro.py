@@ -22,12 +22,15 @@ def send_to_discord(content):
         headers = {
             "Content-Type": "application/json"
         } 
-        data = {
-            "content": content
-        }
-        r = requests.post(webhook_url, json=data, headers=headers)
-        print(r)
-        print(r.reason)
+
+        for i in content.split("\n\n"):
+            data = {
+                "content": i
+            }
+            r = requests.post(webhook_url, json=data, headers=headers)
+            print(i)
+            print(r)
+            print(r.reason)
     except Exception as e:
         print(f"{e}")
 
@@ -77,20 +80,20 @@ if __name__ == "__main__":
     for device in all_devices:
         try:
             print(f"\nIP: {device['ip']}, MAC: {device['mac']}\n")
-            log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}\n"
+            log_lines += f"\nIP: {device['ip']}, MAC: {device['mac']}"
             
             if check_ssh(device['ip']):
                 ssh_status = f"SSH 포트가 열려있습니다: {device['ip']}. SSH 접속 시도 중..."
-                log_lines += "\n" + ssh_status
+                log_lines += "\n" + ssh_status + "\n"
                 ssh_connect(device['ip'])
             else:
                 ssh_status = f"SSH 포트가 닫혀있습니다: {device['ip']}"
-                log_lines += "\n" + ssh_status
+                log_lines += "\n" + ssh_status + "\n"
         except:
             continue
 
     try:
-        print(log_lines)
+        # print(log_lines)
         print("###################")
         send_to_discord(log_lines)
     except Exception as e:

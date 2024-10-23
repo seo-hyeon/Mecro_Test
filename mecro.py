@@ -28,6 +28,7 @@ def send_to_discord(content):
                 "content": i
             }
             r = requests.post(webhook_url, json=data, headers=headers)
+            sleep(2)
             print(i)
             print(r)
             print(r.reason)

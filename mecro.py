@@ -88,6 +88,10 @@ if __name__ == "__main__":
                 log_lines += "\n" + ssh_status
         except:
             continue
-    
-    print(log_lines)
-    send_to_discord(log_lines)
+
+    try:
+        print(log_lines)
+        print("###################")
+        send_to_discord(log_lines)
+    except Exception as e:
+        print(e)

